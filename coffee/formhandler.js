@@ -2,6 +2,8 @@
     'use scrict';
     var App = window.App || {};
     var $ = window.jQuery
+    // var FORM_SELECTOR = '[data-coffee-order="form]'
+
     console.log($)
 
     function FormHandler(selector) {
@@ -13,16 +15,25 @@
             throw new Error('could not find element with selector:' + selector)
         }
     }
-    FormHandler.prototype.addSubmitHandler = function () {
+    FormHandler.prototype.addSubmitHandler = function (fn) {
         console.log('Setting submit handler for form')
         this.$formElement.on('submit', function (event) {
             event.preventDefault()
-            var data = $(this).serializeArray(
-                console.log(data)
-            )
+            var data = {}
+            $(this).serializeArray().forEach(function (item) {
+                data[item.name] = item.value
+                console.log(item.name + '  is' + item.value)
+            })
+            console.log(data);
+            fn(data);
+            this.reset();
+            this.elements[0].focus();
+            
+
         })
     }
     App.FormHandler = FormHandler;
     window.App = App;
 })(window)
-var formHandler = new App.FormHandler()
+// var fh = new App.FormHandler('[data-coffee-order="form"]')
+// fh.addSubmitHandler()
