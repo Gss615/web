@@ -2,6 +2,7 @@
     <section>
         <h1>标签</h1>
         <p id="p"></p>
+        <button @click="data1 ++">点击</button>
         <blockquote>引sss用内容</blockquote>
     </section>
 </template>
@@ -10,17 +11,24 @@
     export default {
         name: 'TodoList',
         data() {
-            return {}
+            return {
+                data1:1
+            }
         },
         created() {
-            console.log('----sssss初始化', this.$util.getOS())
+            // console.log('----sssss初始化', this.$util.getOS())
         },
         mounted() {
             let $p = document.getElementById('p')
-            $p.appendChild(document.createTextNode('test'))
+            // $p.appendChild(document.createTextNode('test'))
         },
         methods: {
 
+        },
+        watch:{
+            data1:()=>{
+                console.log(this)
+            }
         }
     }
 
